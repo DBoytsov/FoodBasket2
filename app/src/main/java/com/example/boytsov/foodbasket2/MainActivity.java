@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         lvMain.setAdapter(myListAdapter);
         lvMain.setOnItemClickListener(this);
         lvMain.setOnItemLongClickListener(this);
-        push=(Button)findViewById(R.id.button);
+        push=(Button)findViewById(R.id.button2);
         editText=(EditText)findViewById(R.id.editText);
 
         push.setOnClickListener(new View.OnClickListener() {
