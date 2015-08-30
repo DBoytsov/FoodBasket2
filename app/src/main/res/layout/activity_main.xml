@@ -9,19 +9,15 @@
         android:layout_weight="1"
         android:id="@+id/editText2"
         android:hint="@string/editTextListHeader"
-        android:layout_toLeftOf="@+id/button4"
+
         android:layout_marginLeft="40dp"
+        android:textAlignment="center"
+        android:typeface="sans"
+        android:gravity="center_horizontal"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp" />
 
-        android:typeface="sans" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:src="@drawable/ic_check_black_12dp"
-        android:layout_weight="1"
-        android:id="@+id/button4"
-        android:layout_alignParentRight="true" />
 
     <ListView
         android:layout_width="wrap_content"

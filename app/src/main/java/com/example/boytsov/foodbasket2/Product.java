@@ -3,14 +3,21 @@ package com.example.boytsov.foodbasket2;
 /**
  * Created by Boytsov on 09.08.2015.
  */
+
+//Объектная модель. Класс "Продукт"
 public class Product {
     String name_product;
     int id=1;
     Boolean isstrikeout=false;
+    Product my_product;
 
 
     public Product(String name_product){
         this.name_product=name_product;
+        this.isstrikeout=false;
+    }
+    public Product(Product my_product){
+        this.name_product=my_product.getName_product();
         this.isstrikeout=false;
     }
     public Product(int id,String name_product){
