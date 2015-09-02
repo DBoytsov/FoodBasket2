@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 } else {
                 ProductItemList myitemlist= new ProductItemList(editText2.getText().toString(),product);
                 Log.d(LOG_TAG, "Description: " + myitemlist.toString());
+                //Здесь мы должны создать объект card и передать его в startActivity
+
                 //Заглушка
                 Intent intent=new Intent(this,StartActivity.class);
                 startActivity(intent);}

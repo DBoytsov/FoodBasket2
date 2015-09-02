@@ -36,4 +36,8 @@ public class ProductItemList extends Product {
         String about=product_item_list_name+" "+product_item_list_date+" "+super.getName_product()+" "+super.IsStrikeout();
         return about;
     }
+
+    public CharSequence getProductItemListName(){
+        return (CharSequence) this.product_item_list_name;
+    }
 }

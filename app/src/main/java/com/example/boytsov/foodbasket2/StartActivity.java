@@ -3,6 +3,7 @@ package com.example.boytsov.foodbasket2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,14 +16,34 @@ import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
+import java.util.ArrayList;
+
+import it.gmariotti.cardslib.library.cards.actions.BaseSupplementalAction;
+import it.gmariotti.cardslib.library.cards.actions.IconSupplementalAction;
+import it.gmariotti.cardslib.library.cards.material.MaterialLargeImageCard;
+import it.gmariotti.cardslib.library.internal.Card;
+import it.gmariotti.cardslib.library.recyclerview.internal.CardArrayRecyclerViewAdapter;
+import it.gmariotti.cardslib.library.recyclerview.view.CardRecyclerView;
+
 /**
  * Created by Boytsov on 28.08.2015.
  */
 public class StartActivity extends ActionBarActivity {
     private Drawer.Result drawerResult = null;
+    MaterialLargeImageCard card;
+    ArrayList<Card> cards;
+    ArrayList<BaseSupplementalAction> actions;
+    CardArrayRecyclerViewAdapter mCardArrayAdapter;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startactivity);
+        init_navigation();
+        init_card();
+        mCardArrayAdapter.notifyDataSetChanged();
+    }
+
+    //Описание navigation draw
+    private void init_navigation(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,5 +75,60 @@ public class StartActivity extends ActionBarActivity {
                     }
                 })
                 .build();
+    }
+
+    private void init_card(){
+        // Set supplemental actions as icon
+        cards = new ArrayList<Card>();
+        actions = new ArrayList<BaseSupplementalAction>();
+
+        IconSupplementalAction t1 = new IconSupplementalAction(this, R.id.ic1);
+        t1.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Toast.makeText(StartActivity.this, " Click on Text SHARE ", Toast.LENGTH_SHORT).show();
+            }
+        });
+        actions.add(t1);
+
+        IconSupplementalAction t2 = new IconSupplementalAction(this, R.id.ic2);
+        t2.setOnActionClickListener(new BaseSupplementalAction.OnActionClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Toast.makeText(StartActivity.this, " Click on Text LEARN ", Toast.LENGTH_SHORT).show();
+            }
+        });
+        actions.add(t2);
+
+        card =
+                MaterialLargeImageCard.with(this)
+                        .setTextOverImage("Italian Beaches")
+                        .useDrawableId(R.drawable.im_beach)
+                        .setupSupplementalActions(R.layout.carddemo_native_material_supplemental_actions_large_icon,actions )
+                        .build();
+
+        card.setOnClickListener(new Card.OnCardClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Toast.makeText(StartActivity.this, " Click on ActionArea ", Toast.LENGTH_SHORT).show();
+                cards.add(card);
+                mCardArrayAdapter.notifyDataSetChanged();
+            }
+        });
+
+        cards.add(card);
+
+        mCardArrayAdapter = new CardArrayRecyclerViewAdapter(this, cards);
+
+        //оставить здесь
+        CardRecyclerView mRecyclerView = (CardRecyclerView) this.findViewById(R.id.carddemo_recyclerview);
+
+        mRecyclerView.setHasFixedSize(false);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        //Оставить здесь.Set the empty view
+        if (mRecyclerView != null) {
+            mRecyclerView.setAdapter(mCardArrayAdapter);
+        }
     }
 }
