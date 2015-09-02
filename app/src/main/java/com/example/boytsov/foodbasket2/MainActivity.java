@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     EditText editText,editText2;
     Button push;
     ListView lvMain;
+
     final String LOG_TAG = "myLogs";
 
     @Override
@@ -81,11 +82,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 } else {
                 ProductItemList myitemlist= new ProductItemList(editText2.getText().toString(),product);
                 Log.d(LOG_TAG, "Description: " + myitemlist.toString());
-                //Здесь мы должны создать объект card и передать его в startActivity
-
+                //Здесь мы должны передать id productItemList в startActivity, чтобы создать карточку
+                    String idproductlist=myitemlist.getName();
+                Log.d(LOG_TAG,"idproductlist"+ idproductlist);
                 //Заглушка
-                Intent intent=new Intent(this,StartActivity.class);
-                startActivity(intent);}
+                Intent intent=new Intent();
+                intent.putExtra("idproductlist",idproductlist);
+                    setResult(RESULT_OK, intent);
+                finish();}
                 break;
             case R.id.action_settings:
                 return true;

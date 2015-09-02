@@ -1,5 +1,7 @@
 package com.example.boytsov.foodbasket2;
 
+import java.util.UUID;
+
 /**
  * Created by Boytsov on 09.08.2015.
  */
@@ -7,39 +9,41 @@ package com.example.boytsov.foodbasket2;
 //Объектная модель. Класс "Продукт"
 public class Product {
     String name_product;
-    int id=1;
+    private UUID mId;
     Boolean isstrikeout=false;
-    Product my_product;
+
 
 
     public Product(String name_product){
         this.name_product=name_product;
         this.isstrikeout=false;
+        mId = UUID.randomUUID();
     }
     public Product(Product my_product){
         this.name_product=my_product.getName_product();
         this.isstrikeout=false;
+        mId = UUID.randomUUID();
     }
     public Product(int id,String name_product){
         this.name_product=name_product;
-        this.id=id;
+        mId = UUID.randomUUID();
         this.isstrikeout=false;
     }
     public Product(int id,String name_product,Boolean isstrikeout){
         this.name_product=name_product;
-        this.id=id;
+        mId = UUID.randomUUID();
         this.isstrikeout=isstrikeout;
     }
 
     public String getName_product() {
         return name_product;
     }
-    public int getID_product() {
-        return id;
+    public UUID getId() {
+        return mId;
     }
 
-    public void setID_product(int id) {
-        this.id=id;
+    public void setID_product(UUID id) {
+        mId=id;
     }
     public void setName_product(String name_product) {
         this.name_product = name_product;

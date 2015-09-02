@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -34,6 +35,10 @@ public class StartActivity extends ActionBarActivity {
     ArrayList<Card> cards;
     ArrayList<BaseSupplementalAction> actions;
     CardArrayRecyclerViewAdapter mCardArrayAdapter;
+    ProductItemList myProductItemList;
+    CharSequence productListName;
+    Product myProduct;
+    final String LOG_TAG = "myLogs";
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startactivity);
@@ -69,7 +74,7 @@ public class StartActivity extends ActionBarActivity {
                         if (drawerItem.getIdentifier()==1) {
                             Toast.makeText(StartActivity.this, StartActivity.this.getString(((Nameable) drawerItem).getNameRes()), Toast.LENGTH_SHORT).show();
                             Intent intent=new Intent(StartActivity.this,MainActivity.class);
-                            startActivity(intent);
+                            startActivityForResult(intent, 1);
                         }
 
                     }
@@ -130,5 +135,29 @@ public class StartActivity extends ActionBarActivity {
         if (mRecyclerView != null) {
             mRecyclerView.setAdapter(mCardArrayAdapter);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(data==null){return;
+    }
+        productListName= (CharSequence) data.getStringExtra("idproductlist");
+        Log.d(LOG_TAG, "productListName" + productListName);
+        cardCreate();
+
+}
+    public void cardCreate(){
+        //ProductItemListArray.getProductItemList(idlist);
+        //String my="ggg";
+
+        card =
+                MaterialLargeImageCard.with(this)
+                        .setTextOverImage(productListName)
+                        .useDrawableId(R.drawable.header)
+                        .setupSupplementalActions(R.layout.carddemo_native_material_supplemental_actions_large_icon, actions)
+                        .build();
+        cards.add(card);
+        mCardArrayAdapter.notifyDataSetChanged();
+
     }
 }
