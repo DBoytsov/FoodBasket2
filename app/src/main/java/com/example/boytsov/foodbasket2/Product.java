@@ -21,18 +21,12 @@ public class Product {
     }
     public Product(Product my_product){
         this.name_product=my_product.getName_product();
-        this.isstrikeout=false;
+        this.isstrikeout=my_product.IsStrikeout();
         mId = UUID.randomUUID();
     }
-    public Product(int id,String name_product){
-        this.name_product=name_product;
-        mId = UUID.randomUUID();
-        this.isstrikeout=false;
-    }
-    public Product(int id,String name_product,Boolean isstrikeout){
-        this.name_product=name_product;
-        mId = UUID.randomUUID();
-        this.isstrikeout=isstrikeout;
+
+    public void setName_product(String name_product) {
+        this.name_product = name_product;
     }
 
     public String getName_product() {
@@ -42,21 +36,14 @@ public class Product {
         return mId;
     }
 
-    public void setID_product(UUID id) {
-        mId=id;
-    }
-    public void setName_product(String name_product) {
-        this.name_product = name_product;
-    }
     public void setIsstrikeout(boolean isstrikeout){
         this.isstrikeout=isstrikeout;
     }
     public boolean IsStrikeout(){
         return isstrikeout;
     }
-    public boolean IsStrikeoutByName(String name_product){
 
-        return isstrikeout;
-    }
+
+
 }
 

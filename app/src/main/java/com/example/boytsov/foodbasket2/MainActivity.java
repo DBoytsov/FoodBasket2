@@ -80,14 +80,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 if (header.length()<=0 || header.equals("")) {
                     Toast.makeText(MainActivity.this,"Укажите название списка",Toast.LENGTH_SHORT).show();
                 } else {
-                ProductItemList myitemlist= new ProductItemList(editText2.getText().toString(),product);
+                ProductItemList myitemlist= new ProductItemList(header,products);
                 Log.d(LOG_TAG, "Description: " + myitemlist.toString());
                 //Здесь мы должны передать id productItemList в startActivity, чтобы создать карточку
-                    String idproductlist=myitemlist.getName();
-                Log.d(LOG_TAG,"idproductlist"+ idproductlist);
-                //Заглушка
+
                 Intent intent=new Intent();
-                intent.putExtra("idproductlist",idproductlist);
+                intent.putExtra("header",header);
                     setResult(RESULT_OK, intent);
                 finish();}
                 break;

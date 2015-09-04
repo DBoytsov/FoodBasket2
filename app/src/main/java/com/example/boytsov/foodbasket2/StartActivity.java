@@ -141,7 +141,7 @@ public class StartActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data==null){return;
     }
-        productListName= (CharSequence) data.getStringExtra("idproductlist");
+        productListName= (CharSequence) data.getStringExtra("header");
         Log.d(LOG_TAG, "productListName" + productListName);
         cardCreate();
 
