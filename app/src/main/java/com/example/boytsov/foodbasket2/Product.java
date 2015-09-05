@@ -14,6 +14,9 @@ public class Product {
 
 
 
+    public Product(){
+
+    }
     public Product(String name_product){
         this.name_product=name_product;
         this.isstrikeout=false;
@@ -25,6 +28,12 @@ public class Product {
         mId = UUID.randomUUID();
     }
 
+    public Product(UUID id,String name_product) {
+        this.name_product = name_product;
+        this.isstrikeout = false;
+        mId = id;
+    }
+
     public void setName_product(String name_product) {
         this.name_product = name_product;
     }
@@ -34,6 +43,9 @@ public class Product {
     }
     public UUID getId() {
         return mId;
+    }
+    public void setId(UUID id) {
+        this.mId=id;
     }
 
     public void setIsstrikeout(boolean isstrikeout){

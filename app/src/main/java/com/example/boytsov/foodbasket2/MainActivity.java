@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 //Класс описывающий создание списка
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     ArrayList<Product> products;
     ListAdapter myListAdapter;
     Product product,newpr;
+    DataBase db;
     EditText editText,editText2;
     Button push;
     ListView lvMain;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         products= new ArrayList<Product>();
         myListAdapter=new ListAdapter(this,products);
         lvMain=(ListView)findViewById(R.id.listView);
+        db = new DataBase(this);
         lvMain.setAdapter(myListAdapter);
         lvMain.setOnItemClickListener(this);
         lvMain.setOnItemLongClickListener(this);
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 } else {
 
                 product = new Product(editText.getText().toString());
+                db.addProduct(product);
                 products.add(product);
                 myListAdapter.notifyDataSetChanged();
                 editText.setText(" ");
@@ -81,11 +85,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     Toast.makeText(MainActivity.this,"Укажите название списка",Toast.LENGTH_SHORT).show();
                 } else {
                 ProductItemList myitemlist= new ProductItemList(header,products);
+                UUID idMyItemList = myitemlist.getId();
                 Log.d(LOG_TAG, "Description: " + myitemlist.toString());
                 //Здесь мы должны передать id productItemList в startActivity, чтобы создать карточку
 
                 Intent intent=new Intent();
                 intent.putExtra("header",header);
+                intent.putExtra("id",idMyItemList);
+                    Log.d(LOG_TAG, "header+id: " + header+" "+idMyItemList);
                     setResult(RESULT_OK, intent);
                 finish();}
                 break;

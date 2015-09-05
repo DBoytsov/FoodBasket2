@@ -18,6 +18,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import it.gmariotti.cardslib.library.cards.actions.BaseSupplementalAction;
 import it.gmariotti.cardslib.library.cards.actions.IconSupplementalAction;
@@ -37,6 +38,7 @@ public class StartActivity extends ActionBarActivity {
     CardArrayRecyclerViewAdapter mCardArrayAdapter;
     ProductItemList myProductItemList;
     CharSequence productListName;
+    UUID myUUID;
     Product myProduct;
     final String LOG_TAG = "myLogs";
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +144,8 @@ public class StartActivity extends ActionBarActivity {
         if(data==null){return;
     }
         productListName= (CharSequence) data.getStringExtra("header");
-        Log.d(LOG_TAG, "productListName" + productListName);
+        myUUID=(UUID)data.getSerializableExtra("id");
+        Log.d(LOG_TAG, "productListName+myUUID" +" "+ productListName+ " " +myUUID);
         cardCreate();
 
 }
