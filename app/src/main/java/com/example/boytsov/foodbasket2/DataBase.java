@@ -28,6 +28,7 @@ public class DataBase extends SQLiteOpenHelper{
     // Contacts Table Columns names
     private static final String KEY_ID = "id";
     private static final String KEY_PRODUCT_NAME = "name_product";
+    private static final String KEY_UUID_PRODUCT_NAME = "id_name_product";
     private static final String IS_STRIKE_OUT = "isstrikeout";
     private static final String LOG_TAG_ERROR ="myLogs";
 
@@ -41,6 +42,7 @@ public class DataBase extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         String CREATE_PRODUCTS_TABLE = "CREATE TABLE " + TABLE_PRODUCTS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY, "
+                + KEY_UUID_PRODUCT_NAME + " UUID, "
                 + KEY_PRODUCT_NAME + " TEXT, "
                 + IS_STRIKE_OUT + " BOOLEAN );";
         db.execSQL(CREATE_PRODUCTS_TABLE);
@@ -65,29 +67,35 @@ public class DataBase extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_PRODUCT_NAME, product.getName_product()); // Contact Name
+        values.put(KEY_PRODUCT_NAME, product.getName_product());
         values.put(IS_STRIKE_OUT, product.IsStrikeout());
+        values.put(KEY_UUID_PRODUCT_NAME, String.valueOf(product.getId()));
 
 
         // Inserting Row
         db.insert(TABLE_PRODUCTS, null, values);
-        Log.d(LOG_TAG_ERROR, "addProduct OK " + " " + product.getName_product()+" "+product.getId());
+        Log.d(LOG_TAG_ERROR, "addProduct OK " + " " + product.getName_product() + " " + product.getId());
+
         db.close(); // Closing database connection
     }
 
-    // Getting single product
+    // Getting single product где-то ошибка здесь
     Product getProduct(UUID id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_PRODUCTS, new String[] { KEY_ID,
-                        KEY_PRODUCT_NAME }, KEY_ID + "=?",
+        Cursor cursor = db.query(TABLE_PRODUCTS, new String[] { KEY_ID,KEY_UUID_PRODUCT_NAME,
+                        KEY_PRODUCT_NAME,IS_STRIKE_OUT  }, KEY_UUID_PRODUCT_NAME + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
-        Product product = new Product((UUID.fromString((cursor.getString(0)))),cursor.getString(1));
+        Product product = new Product();
+        product.setId(UUID.fromString(cursor.getString(1)));
+        product.setName_product(cursor.getString(2));
+        product.setIsstrikeout(Boolean.getBoolean(cursor.getString(3)));
+
         // return contact
-        Log.d(LOG_TAG_ERROR, "getProduct OK "+" "+product.toString());
+        Log.d(LOG_TAG_ERROR, "getProduct OK " + " " + product.getName_product()+" "+product.getId());
         return product;
 
     }
@@ -118,9 +126,9 @@ public class DataBase extends SQLiteOpenHelper{
         if (cursor.moveToFirst()) {
             do {
                 Product product = new Product();
-                product.setId((UUID.fromString((cursor.getString(0)))));
-                product.setName_product(cursor.getString(1));
-                product.setIsstrikeout(Boolean.getBoolean(cursor.getString(2)));
+                product.setId(UUID.fromString(cursor.getString(1)));
+                product.setName_product(cursor.getString(2));
+                product.setIsstrikeout(Boolean.getBoolean(cursor.getString(3)));
 
                 // Adding contact to list
                 productsList.add(product);
@@ -138,17 +146,18 @@ public class DataBase extends SQLiteOpenHelper{
         ContentValues values = new ContentValues();
         values.put(KEY_PRODUCT_NAME, product.getName_product());
         values.put(IS_STRIKE_OUT,product.IsStrikeout());
+        values.put(KEY_UUID_PRODUCT_NAME, String.valueOf(product.getId()));
 
 
         // updating row
-        return db.update(TABLE_PRODUCTS, values, KEY_ID + " = ?",
+        return db.update(TABLE_PRODUCTS, values, KEY_UUID_PRODUCT_NAME + " = ?",
                 new String[] { String.valueOf(product.getId()) });
     }
 
     // Deleting single product
     public void deleteProduct(Product product) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_PRODUCTS, KEY_ID + " = ?",
+        db.delete(TABLE_PRODUCTS, KEY_UUID_PRODUCT_NAME + " = ?",
                 new String[] { String.valueOf(product.getId()) });
         db.close();
     }

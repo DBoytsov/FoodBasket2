@@ -1,5 +1,6 @@
 package com.example.boytsov.foodbasket2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -9,7 +10,7 @@ import java.util.UUID;
  */
 
 //Класс описывающий покупку, содержит массив класса "продукт"
-public class ProductItemList {
+public class ProductItemList implements Serializable {
     UUID mId;
     String product_item_list_name;
     Date product_item_list_date;

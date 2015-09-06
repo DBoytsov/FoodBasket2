@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 //Класс описывающий создание списка
 
@@ -55,10 +54,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 } else {
 
                 product = new Product(editText.getText().toString());
+                //String uuid = String.valueOf(product.getId());
                 db.addProduct(product);
                 products.add(product);
                 myListAdapter.notifyDataSetChanged();
                 editText.setText(" ");
+                /*db.getProduct(product.getId());
+                    Log.d("Reading: ", "Reading all contacts after onItemClick..");
+                    List<Product> products = db.getAllProducts();
+
+                    for (Product cn : products) {
+                        String log = "Id: " + cn.getId() + " ,Name: " + cn.getName_product() + "isStrike " +" " + cn.IsStrikeout();
+                        // Writing Contacts to log
+                        Log.d(LOG_TAG, "ReadingFromDN: " + log);
+                    }*/
             }
             }
         });
@@ -85,16 +94,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     Toast.makeText(MainActivity.this,"Укажите название списка",Toast.LENGTH_SHORT).show();
                 } else {
                 ProductItemList myitemlist= new ProductItemList(header,products);
-                UUID idMyItemList = myitemlist.getId();
-                Log.d(LOG_TAG, "Description: " + myitemlist.toString());
+                //UUID idMyItemList = myitemlist.getId();
+                //Log.d(LOG_TAG, "Description: " + myitemlist.toString());
                 //Здесь мы должны передать id productItemList в startActivity, чтобы создать карточку
 
                 Intent intent=new Intent();
-                intent.putExtra("header",header);
-                intent.putExtra("id",idMyItemList);
-                    Log.d(LOG_TAG, "header+id: " + header+" "+idMyItemList);
+                    intent.putExtra("myitemlist", myitemlist);
+                    intent.putExtra("header", header);
+                //intent.putExtra("id",idMyItemList);
+                    Log.d(LOG_TAG, "myitemlist in MainActivity " + " " + myitemlist.toString());
                     setResult(RESULT_OK, intent);
-                finish();}
+                    super.onResume();
+                    finish();}
                 break;
             case R.id.action_settings:
                 return true;

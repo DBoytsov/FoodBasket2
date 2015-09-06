@@ -1,5 +1,6 @@
 package com.example.boytsov.foodbasket2;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 /**
@@ -7,7 +8,7 @@ import java.util.UUID;
  */
 
 //Объектная модель. Класс "Продукт"
-public class Product {
+public class Product implements Serializable {
     String name_product;
     private UUID mId;
     Boolean isstrikeout=false;
@@ -15,7 +16,7 @@ public class Product {
 
 
     public Product(){
-
+        mId = UUID.randomUUID();
     }
     public Product(String name_product){
         this.name_product=name_product;
@@ -28,9 +29,9 @@ public class Product {
         mId = UUID.randomUUID();
     }
 
-    public Product(UUID id,String name_product) {
+    public Product(UUID id,String name_product,Boolean strike) {
         this.name_product = name_product;
-        this.isstrikeout = false;
+        this.isstrikeout = strike;
         mId = id;
     }
 

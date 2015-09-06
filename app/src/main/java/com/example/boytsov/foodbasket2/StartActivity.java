@@ -47,6 +47,7 @@ public class StartActivity extends ActionBarActivity {
         init_navigation();
         init_card();
         mCardArrayAdapter.notifyDataSetChanged();
+
     }
 
     //Описание navigation draw
@@ -139,13 +140,13 @@ public class StartActivity extends ActionBarActivity {
         }
     }
 
-    @Override
+    //@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data==null){return;
     }
         productListName= (CharSequence) data.getStringExtra("header");
-        myUUID=(UUID)data.getSerializableExtra("id");
-        Log.d(LOG_TAG, "productListName+myUUID" +" "+ productListName+ " " +myUUID);
+        myProductItemList=(ProductItemList)data.getSerializableExtra("myitemlist");
+        Log.d(LOG_TAG, "myProductItemList in StartActivity" + " " + myProductItemList.getName() + " " + myProductItemList.getId());
         cardCreate();
 
 }
@@ -153,12 +154,21 @@ public class StartActivity extends ActionBarActivity {
         //ProductItemListArray.getProductItemList(idlist);
         //String my="ggg";
 
+
         card =
                 MaterialLargeImageCard.with(this)
                         .setTextOverImage(productListName)
                         .useDrawableId(R.drawable.header)
                         .setupSupplementalActions(R.layout.carddemo_native_material_supplemental_actions_large_icon, actions)
                         .build();
+        card.setOnClickListener(new Card.OnCardClickListener() {
+            @Override
+            public void onClick(Card card, View view) {
+                Intent i = new Intent(StartActivity.this,ReadyListActivity.class);
+                startActivity(i);
+
+            }
+        });
         cards.add(card);
         mCardArrayAdapter.notifyDataSetChanged();
 
