@@ -74,4 +74,8 @@ public class ProductItemList implements Serializable {
         mProducts.add(c);
     }
 
+    public ArrayList<Product> getProductsFromProductItemList(){
+        return mProducts;
+    }
+
 }

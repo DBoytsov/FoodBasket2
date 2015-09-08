@@ -17,4 +17,5 @@
     <string name="btn_logout_from_google">Выйти из Профиля</string>
     <string name="btn_revoke_access">Revoke Access</string>
     <string name="btn_goToStartActivity">Продолжить</string>
+    <string name="editMoney_readylist">Итого:</string>
 </resources>

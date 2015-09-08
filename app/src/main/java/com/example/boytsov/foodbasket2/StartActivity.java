@@ -37,7 +37,9 @@ public class StartActivity extends ActionBarActivity {
     ArrayList<BaseSupplementalAction> actions;
     CardArrayRecyclerViewAdapter mCardArrayAdapter;
     ProductItemList myProductItemList;
-    CharSequence productListName;
+    DataBase db;
+    ArrayList<Product> products;
+
     UUID myUUID;
     Product myProduct;
     final String LOG_TAG = "myLogs";
@@ -46,6 +48,7 @@ public class StartActivity extends ActionBarActivity {
         setContentView(R.layout.startactivity);
         init_navigation();
         init_card();
+        //products=(ArrayList)db.getAllProducts();
         mCardArrayAdapter.notifyDataSetChanged();
 
     }
@@ -144,28 +147,31 @@ public class StartActivity extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(data==null){return;
     }
-        productListName= (CharSequence) data.getStringExtra("header");
+
         myProductItemList=(ProductItemList)data.getSerializableExtra("myitemlist");
         Log.d(LOG_TAG, "myProductItemList in StartActivity" + " " + myProductItemList.getName() + " " + myProductItemList.getId());
         cardCreate();
 
 }
     public void cardCreate(){
-        //ProductItemListArray.getProductItemList(idlist);
-        //String my="ggg";
-
 
         card =
                 MaterialLargeImageCard.with(this)
-                        .setTextOverImage(productListName)
+                        .setTextOverImage(myProductItemList.getName())
                         .useDrawableId(R.drawable.header)
                         .setupSupplementalActions(R.layout.carddemo_native_material_supplemental_actions_large_icon, actions)
                         .build();
         card.setOnClickListener(new Card.OnCardClickListener() {
             @Override
             public void onClick(Card card, View view) {
-                Intent i = new Intent(StartActivity.this,ReadyListActivity.class);
-                startActivity(i);
+                Intent intent=new Intent(StartActivity.this,ReadyListActivity.class);
+                intent.putExtra("myitemlist", myProductItemList);
+                //intent.putExtra("id",idMyItemList);
+                Log.d(LOG_TAG, "myProductItemList from StartActivity " + " " + myProductItemList.toString());
+                startActivity(intent);
+
+                finish();
+
 
             }
         });
@@ -173,4 +179,6 @@ public class StartActivity extends ActionBarActivity {
         mCardArrayAdapter.notifyDataSetChanged();
 
     }
+
+
 }

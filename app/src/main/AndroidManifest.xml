@@ -21,13 +21,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-        android:theme="@style/Theme.AppCompat.Light"
-        ></activity>
-        <activity android:name=".StartActivity"
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light">
 
-            ></activity>
-        <activity android:name=".ReadyListActivity"></activity>
+        </activity>
+        <activity
+            android:name=".StartActivity">
+
+        </activity>
+        <activity
+            android:name=".ReadyListActivity"
+            android:theme="@style/Theme.AppCompat.Light">
+
+        </activity>
 
     </application>
 

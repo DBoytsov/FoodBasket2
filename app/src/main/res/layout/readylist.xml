@@ -13,7 +13,10 @@
         android:typeface="sans"
         android:gravity="center_horizontal"
         android:layout_marginRight="40dp"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
 
 
@@ -31,6 +34,7 @@
         android:id="@+id/editMoney_readylist"
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true"
+        android:hint="@string/editMoney_readylist"
         android:layout_toLeftOf="@+id/moneyOk_readylist" />
 
     <Button
